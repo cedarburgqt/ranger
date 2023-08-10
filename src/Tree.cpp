@@ -26,9 +26,9 @@ Tree::Tree() :
 }
 
 Tree::Tree(std::vector<std::vector<size_t>>& child_nodeIDs, std::vector<size_t>& split_varIDs,
-    std::vector<double>& split_values) :
+    std::vector<double>& split_values, std::vector<double>& split_decreases, std::vector<double>& split_num_samples) :
     mtry(0), num_samples(0), num_samples_oob(0), min_node_size(0), min_bucket(0), deterministic_varIDs(0), split_select_weights(0), case_weights(
-        0), manual_inbag(0), split_varIDs(split_varIDs), split_values(split_values), child_nodeIDs(child_nodeIDs), oob_sampleIDs(
+        0), manual_inbag(0), split_varIDs(split_varIDs), split_values(split_values), split_decreases(split_decreases), split_num_samples(split_num_samples), child_nodeIDs(child_nodeIDs), oob_sampleIDs(
         0), holdout(false), keep_inbag(false), data(0), regularization_factor(0), regularization_usedepth(false), split_varIDs_used(
         0), variable_importance(0), importance_mode(DEFAULT_IMPORTANCE_MODE), sample_with_replacement(true), sample_fraction(
         0), memory_saving_splitting(false), splitrule(DEFAULT_SPLITRULE), alpha(DEFAULT_ALPHA), minprop(
@@ -273,6 +273,8 @@ void Tree::appendToFile(std::ofstream& file) {
   saveVector2D(child_nodeIDs, file);
   saveVector1D(split_varIDs, file);
   saveVector1D(split_values, file);
+  saveVector1D(split_decreases, file);
+  saveVector1D(split_num_samples, file);
 
   // Call special functions for subclasses to save special fields.
   appendToFileInternal(file);
@@ -380,6 +382,8 @@ bool Tree::splitNode(size_t nodeID) {
 void Tree::createEmptyNode() {
   split_varIDs.push_back(0);
   split_values.push_back(0);
+  split_decreases.push_back(0);
+  split_num_samples.push_back(0);
   child_nodeIDs[0].push_back(0);
   child_nodeIDs[1].push_back(0);
   start_pos.push_back(0);

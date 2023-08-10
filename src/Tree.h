@@ -28,7 +28,7 @@ public:
 
   // Create from loaded forest
   Tree(std::vector<std::vector<size_t>>& child_nodeIDs, std::vector<size_t>& split_varIDs,
-      std::vector<double>& split_values);
+      std::vector<double>& split_values, std::vector<double>& split_decreases, std::vector<double>& split_num_samples);
 
   virtual ~Tree() = default;
 
@@ -178,6 +178,10 @@ protected:
   // Value to split at for each node, for now only binary split
   // For terminal nodes the prediction value is saved here
   std::vector<double> split_values;
+
+  // TEST ZONE - split_decrease
+  std::vector<double> split_decreases;
+  std::vector<double> split_num_samples;
 
   // Vector of left and right child node IDs, 0 for no child
   std::vector<std::vector<size_t>> child_nodeIDs;

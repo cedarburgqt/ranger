@@ -21,10 +21,19 @@ TreeProbability::TreeProbability(std::vector<double>* class_values, std::vector<
         class_weights), counter(0), counter_per_class(0) {
 }
 
+/**
 TreeProbability::TreeProbability(std::vector<std::vector<size_t>>& child_nodeIDs, std::vector<size_t>& split_varIDs,
     std::vector<double>& split_values, std::vector<double>* class_values, std::vector<uint>* response_classIDs,
     std::vector<std::vector<double>>& terminal_class_counts) :
     Tree(child_nodeIDs, split_varIDs, split_values), class_values(class_values), response_classIDs(response_classIDs), sampleIDs_per_class(
+        0), terminal_class_counts(terminal_class_counts), class_weights(0), counter(0), counter_per_class(0) {
+}
+**/
+
+TreeProbability::TreeProbability(std::vector<std::vector<size_t>>& child_nodeIDs, std::vector<size_t>& split_varIDs,
+    std::vector<double>& split_values, std::vector<double>& split_decreases, std::vector<double>& split_num_samples, std::vector<double>* class_values, std::vector<uint>* response_classIDs,
+    std::vector<std::vector<double>>& terminal_class_counts) :
+    Tree(child_nodeIDs, split_varIDs, split_values, split_decreases, split_num_samples), class_values(class_values), response_classIDs(response_classIDs), sampleIDs_per_class(
         0), terminal_class_counts(terminal_class_counts), class_weights(0), counter(0), counter_per_class(0) {
 }
 
@@ -196,6 +205,8 @@ bool TreeProbability::findBestSplit(size_t nodeID, std::vector<size_t>& possible
   // Save best values
   split_varIDs[nodeID] = best_varID;
   split_values[nodeID] = best_value;
+  split_decreases[nodeID] = best_decrease;
+  split_num_samples[nodeID] = num_samples_node;
 
   // Compute decrease of impurity for this node and add to variable importance if needed
   if (importance_mode == IMP_GINI || importance_mode == IMP_GINI_CORRECTED) {

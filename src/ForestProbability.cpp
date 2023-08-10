@@ -21,6 +21,7 @@ namespace ranger {
 void ForestProbability::loadForest(size_t num_trees,
     std::vector<std::vector<std::vector<size_t>> >& forest_child_nodeIDs,
     std::vector<std::vector<size_t>>& forest_split_varIDs, std::vector<std::vector<double>>& forest_split_values,
+    std::vector<std::vector<double>>& forest_split_decreases, std::vector<std::vector<double>>& forest_num_samples,
     std::vector<double>& class_values, std::vector<std::vector<std::vector<double>>>& forest_terminal_class_counts,
     std::vector<bool>& is_ordered_variable) {
 
@@ -32,7 +33,7 @@ void ForestProbability::loadForest(size_t num_trees,
   trees.reserve(num_trees);
   for (size_t i = 0; i < num_trees; ++i) {
     trees.push_back(
-        std::make_unique<TreeProbability>(forest_child_nodeIDs[i], forest_split_varIDs[i], forest_split_values[i],
+        std::make_unique<TreeProbability>(forest_child_nodeIDs[i], forest_split_varIDs[i], forest_split_values[i], forest_split_decreases[i], forest_num_samples[i], 
             &this->class_values, &response_classIDs, forest_terminal_class_counts[i]));
   }
 
@@ -67,6 +68,8 @@ void ForestProbability::initInternal() {
   if (min_bucket == 0) {
     min_bucket = DEFAULT_MIN_BUCKET;
   }
+
+  
 
   // Create class_values and response_classIDs
   if (!prediction_mode) {
@@ -296,8 +299,8 @@ void ForestProbability::loadFromFileInternal(std::ifstream& infile) {
   // Read class_values
   readVector1D(class_values, infile);
 
-  for (size_t i = 0; i < num_trees; ++i) {
-
+  for (size_t i = 0; i < num_trees; ++i) {         
+      
     // Read data
     std::vector<std::vector<size_t>> child_nodeIDs;
     readVector2D(child_nodeIDs, infile);
@@ -305,6 +308,12 @@ void ForestProbability::loadFromFileInternal(std::ifstream& infile) {
     readVector1D(split_varIDs, infile);
     std::vector<double> split_values;
     readVector1D(split_values, infile);
+
+    // test loading split_decreases & samples
+    std::vector<double> split_decreases;
+    readVector1D(split_decreases, infile);
+    std::vector<double> split_num_samples;
+    readVector1D(split_num_samples, infile);
 
     // Read Terminal node class counts
     std::vector<size_t> terminal_nodes;
@@ -326,7 +335,7 @@ void ForestProbability::loadFromFileInternal(std::ifstream& infile) {
 
     // Create tree
     trees.push_back(
-        std::make_unique<TreeProbability>(child_nodeIDs, split_varIDs, split_values, &class_values, &response_classIDs,
+        std::make_unique<TreeProbability>(child_nodeIDs, split_varIDs, split_values, split_decreases, split_num_samples, &class_values, &response_classIDs,
             terminal_class_counts));
   }
 }

@@ -23,7 +23,7 @@ namespace ranger {
 
 TreeRegression::TreeRegression(std::vector<std::vector<size_t>>& child_nodeIDs, std::vector<size_t>& split_varIDs,
     std::vector<double>& split_values) :
-    Tree(child_nodeIDs, split_varIDs, split_values), counter(0), sums(0) {
+    Tree(child_nodeIDs, split_varIDs, split_values, split_decreases, split_num_samples), counter(0), sums(0) {
 }
 
 void TreeRegression::allocateMemory() {
