@@ -99,6 +99,20 @@ public:
     }
     return result;
   }
+  std::vector<std::vector<double>> getSplitDecreases() {
+      std::vector<std::vector<double>> result;
+      for (auto& tree : trees) {
+          result.push_back(tree->getSplitDecreases());
+      }
+      return result;
+  }
+  std::vector<std::vector<double>> getSplitNumSamples() {
+      std::vector<std::vector<double>> result;
+      for (auto& tree : trees) {
+          result.push_back(tree->getSplitNumSamples());
+      }
+      return result;
+  }
   const std::vector<double>& getVariableImportance() const {
     return variable_importance;
   }

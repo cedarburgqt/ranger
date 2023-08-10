@@ -61,6 +61,12 @@ public:
   const std::vector<double>& getSplitValues() const {
     return split_values;
   }
+  const std::vector<double>& getSplitDecreases() const {
+      return split_decreases;
+  }
+  const std::vector<double>& getSplitNumSamples() const {
+      return split_num_samples;
+  }
   const std::vector<size_t>& getSplitVarIDs() const {
     return split_varIDs;
   }

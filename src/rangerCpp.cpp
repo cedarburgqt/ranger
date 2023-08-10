@@ -159,6 +159,8 @@ Rcpp::List rangerCpp(uint treetype, Rcpp::NumericMatrix& input_x, Rcpp::NumericM
       std::vector<std::vector<std::vector<size_t>> > child_nodeIDs = loaded_forest["child.nodeIDs"];
       std::vector<std::vector<size_t>> split_varIDs = loaded_forest["split.varIDs"];
       std::vector<std::vector<double>> split_values = loaded_forest["split.values"];
+      std::vector<std::vector<double>> split_decreases = loaded_forest["split.decreases"];
+      std::vector<std::vector<double>> split_num_samples = loaded_forest["split.numSamples"];
       std::vector<bool> is_ordered = loaded_forest["is.ordered"];
 
       if (treetype == TREE_CLASSIFICATION) {
@@ -179,7 +181,7 @@ Rcpp::List rangerCpp(uint treetype, Rcpp::NumericMatrix& input_x, Rcpp::NumericM
         std::vector<double> class_values = loaded_forest["class.values"];
         std::vector<std::vector<std::vector<double>>> terminal_class_counts = loaded_forest["terminal.class.counts"];
         auto& temp = dynamic_cast<ForestProbability&>(*forest);
-        temp.loadForest(num_trees, child_nodeIDs, split_varIDs, split_values, class_values,
+        temp.loadForest(num_trees, child_nodeIDs, split_varIDs, split_values, split_decreases, split_num_samples, class_values,
             terminal_class_counts, is_ordered);
       }
     } else {
@@ -246,6 +248,8 @@ Rcpp::List rangerCpp(uint treetype, Rcpp::NumericMatrix& input_x, Rcpp::NumericM
       forest_object.push_back(forest->getChildNodeIDs(), "child.nodeIDs");
       forest_object.push_back(forest->getSplitVarIDs(), "split.varIDs");
       forest_object.push_back(forest->getSplitValues(), "split.values");
+      forest_object.push_back(forest->getSplitDecreases(), "split.decreases");
+      forest_object.push_back(forest->getSplitNumSamples(), "split.numSamples");
       forest_object.push_back(forest->getIsOrderedVariable(), "is.ordered");
 
       if (snp_data.nrow() > 1 && order_snps) {
