@@ -202,10 +202,19 @@ bool TreeProbability::findBestSplit(size_t nodeID, std::vector<size_t>& possible
     return true;
   }
 
+  //float split_best_decrease_f = (float)best_decrease;
+
+  int scaled_decrease = best_decrease * 1000;
+
+  size_t split_best_decrease = scaled_decrease;
+
+  //float best_decrease_f = best_decrease;
+  //float split_best_decrease = round(best_decrease_f * 100) / 100;
+
   // Save best values
   split_varIDs[nodeID] = best_varID;
   split_values[nodeID] = best_value;
-  split_decreases[nodeID] = best_decrease;
+  split_decreases[nodeID] = split_best_decrease;
   split_num_samples[nodeID] = num_samples_node;
 
   // Compute decrease of impurity for this node and add to variable importance if needed

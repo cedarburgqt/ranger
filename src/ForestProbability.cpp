@@ -338,6 +338,22 @@ void ForestProbability::loadFromFileInternal(std::ifstream& infile) {
         std::make_unique<TreeProbability>(child_nodeIDs, split_varIDs, split_values, split_decreases, split_num_samples, &class_values, &response_classIDs,
             terminal_class_counts));
   }
+
+  std::vector<double> split_decreases_test;
+  split_decreases_test = trees[0]->getSplitDecreases();
+
+  std::vector<double> split_values_test;
+  split_values_test = trees[0]->getSplitValues();
+
+  std::string str_decrease_test(split_decreases_test.begin(), split_decreases_test.end());
+  std::string str_values_test(split_values_test.begin(), split_values_test.end());
+
+  if (verbose_out)
+      *verbose_out << "Decrease data: " << str_decrease_test << "." << std::endl;
+
+  if (verbose_out)
+      *verbose_out << "Values data: " << str_values_test << "." << std::endl;
+
 }
 
 const std::vector<double>& ForestProbability::getTreePrediction(size_t tree_idx, size_t sample_idx) const {
