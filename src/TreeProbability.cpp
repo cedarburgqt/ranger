@@ -157,7 +157,7 @@ bool TreeProbability::findBestSplit(size_t nodeID, std::vector<size_t>& possible
   size_t num_classes = class_values->size();
   double best_decrease = -1;
   size_t best_varID = 0;
-  double best_value = 0;
+  double best_value = 0;  
 
   std::vector<size_t> class_counts(num_classes);
   // Compute overall class counts
@@ -205,9 +205,11 @@ bool TreeProbability::findBestSplit(size_t nodeID, std::vector<size_t>& possible
   //float split_best_decrease_f = (float)best_decrease;
 
   // int scaled_decrease = best_decrease * 1000;
+
+  signed int best_decrease_int = best_decrease * 100;
   
   // store as "size_t" because cpp is the devil.
-  size_t split_best_decrease = best_decrease;
+  size_t split_best_decrease = best_decrease_int;
 
   //float best_decrease_f = best_decrease;
   //float split_best_decrease = round(best_decrease_f * 100) / 100;
