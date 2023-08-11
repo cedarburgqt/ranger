@@ -99,8 +99,8 @@ public:
     }
     return result;
   }
-  std::vector<std::vector<size_t>> getSplitDecreases() {
-      std::vector<std::vector<size_t>> result;
+  std::vector<std::vector<double>> getSplitDecreases() {
+      std::vector<std::vector<double>> result;
       for (auto& tree : trees) {
           result.push_back(tree->getSplitDecreases());
       }

@@ -26,7 +26,7 @@ Tree::Tree() :
 }
 
 Tree::Tree(std::vector<std::vector<size_t>>& child_nodeIDs, std::vector<size_t>& split_varIDs,
-    std::vector<double>& split_values, std::vector<size_t>& split_decreases, std::vector<double>& split_num_samples) :
+    std::vector<double>& split_values, std::vector<double>& split_decreases, std::vector<double>& split_num_samples) :
     mtry(0), num_samples(0), num_samples_oob(0), min_node_size(0), min_bucket(0), deterministic_varIDs(0), split_select_weights(0), case_weights(
         0), manual_inbag(0), split_varIDs(split_varIDs), split_values(split_values), split_decreases(split_decreases), split_num_samples(split_num_samples), child_nodeIDs(child_nodeIDs), oob_sampleIDs(
         0), holdout(false), keep_inbag(false), data(0), regularization_factor(0), regularization_usedepth(false), split_varIDs_used(
