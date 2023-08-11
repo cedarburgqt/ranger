@@ -21,7 +21,7 @@ namespace ranger {
 void ForestProbability::loadForest(size_t num_trees,
     std::vector<std::vector<std::vector<size_t>> >& forest_child_nodeIDs,
     std::vector<std::vector<size_t>>& forest_split_varIDs, std::vector<std::vector<double>>& forest_split_values,
-    std::vector<std::vector<double>>& forest_split_decreases, std::vector<std::vector<double>>& forest_num_samples,
+    std::vector<std::vector<size_t>>& forest_split_decreases, std::vector<std::vector<double>>& forest_num_samples,
     std::vector<double>& class_values, std::vector<std::vector<std::vector<double>>>& forest_terminal_class_counts,
     std::vector<bool>& is_ordered_variable) {
 
@@ -310,7 +310,7 @@ void ForestProbability::loadFromFileInternal(std::ifstream& infile) {
     readVector1D(split_values, infile);
 
     // test loading split_decreases & samples
-    std::vector<double> split_decreases;
+    std::vector<size_t> split_decreases;
     readVector1D(split_decreases, infile);
     std::vector<double> split_num_samples;
     readVector1D(split_num_samples, infile);
@@ -339,7 +339,7 @@ void ForestProbability::loadFromFileInternal(std::ifstream& infile) {
             terminal_class_counts));
   }
 
-  std::vector<double> split_decreases_test;
+  std::vector<size_t> split_decreases_test;
   split_decreases_test = trees[0]->getSplitDecreases();
 
   std::vector<double> split_values_test;

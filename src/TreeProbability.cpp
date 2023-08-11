@@ -31,7 +31,7 @@ TreeProbability::TreeProbability(std::vector<std::vector<size_t>>& child_nodeIDs
 **/
 
 TreeProbability::TreeProbability(std::vector<std::vector<size_t>>& child_nodeIDs, std::vector<size_t>& split_varIDs,
-    std::vector<double>& split_values, std::vector<double>& split_decreases, std::vector<double>& split_num_samples, std::vector<double>* class_values, std::vector<uint>* response_classIDs,
+    std::vector<double>& split_values, std::vector<size_t>& split_decreases, std::vector<double>& split_num_samples, std::vector<double>* class_values, std::vector<uint>* response_classIDs,
     std::vector<std::vector<double>>& terminal_class_counts) :
     Tree(child_nodeIDs, split_varIDs, split_values, split_decreases, split_num_samples), class_values(class_values), response_classIDs(response_classIDs), sampleIDs_per_class(
         0), terminal_class_counts(terminal_class_counts), class_weights(0), counter(0), counter_per_class(0) {
@@ -204,9 +204,10 @@ bool TreeProbability::findBestSplit(size_t nodeID, std::vector<size_t>& possible
 
   //float split_best_decrease_f = (float)best_decrease;
 
-  int scaled_decrease = best_decrease * 1000;
-
-  size_t split_best_decrease = scaled_decrease;
+  // int scaled_decrease = best_decrease * 1000;
+  
+  // store as "size_t" because cpp is the devil.
+  size_t split_best_decrease = best_decrease;
 
   //float best_decrease_f = best_decrease;
   //float split_best_decrease = round(best_decrease_f * 100) / 100;

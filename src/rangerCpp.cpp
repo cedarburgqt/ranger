@@ -159,7 +159,7 @@ Rcpp::List rangerCpp(uint treetype, Rcpp::NumericMatrix& input_x, Rcpp::NumericM
       std::vector<std::vector<std::vector<size_t>> > child_nodeIDs = loaded_forest["child.nodeIDs"];
       std::vector<std::vector<size_t>> split_varIDs = loaded_forest["split.varIDs"];
       std::vector<std::vector<double>> split_values = loaded_forest["split.values"];
-      std::vector<std::vector<double>> split_decreases = loaded_forest["split.decreases"];      
+      std::vector<std::vector<size_t>> split_decreases = loaded_forest["split.decreases"];      
       std::vector<std::vector<double>> split_num_samples = loaded_forest["split.numSamples"];
       std::vector<bool> is_ordered = loaded_forest["is.ordered"];
 

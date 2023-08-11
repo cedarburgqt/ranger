@@ -32,7 +32,7 @@ public:
 
   // Create from loaded forest
   TreeProbability(std::vector<std::vector<size_t>>& child_nodeIDs, std::vector<size_t>& split_varIDs,
-      std::vector<double>& split_values, std::vector<double>& split_decreases, std::vector<double>& split_num_samples, std::vector<double>* class_values, std::vector<uint>* response_classIDs,
+      std::vector<double>& split_values, std::vector<size_t>& split_decreases, std::vector<double>& split_num_samples, std::vector<double>* class_values, std::vector<uint>* response_classIDs,
       std::vector<std::vector<double>>& terminal_class_counts);
 
   TreeProbability(const TreeProbability&) = delete;
