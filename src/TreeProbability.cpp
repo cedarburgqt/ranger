@@ -67,8 +67,14 @@ void TreeProbability::addToTerminalNodes(size_t nodeID) {
 
   // Compute fractions
   for (size_t i = 0; i < terminal_class_counts[nodeID].size(); ++i) {
-    terminal_class_counts[nodeID][i] /= num_samples_in_node;
+    terminal_class_counts[nodeID][i] /= num_samples_in_node;    
   }
+
+  // Store number of samples in node
+  split_num_samples[nodeID] = num_samples_in_node;
+
+  // Test!
+
 }
 
 void TreeProbability::appendToFileInternal(std::ofstream& file) { // #nocov start
