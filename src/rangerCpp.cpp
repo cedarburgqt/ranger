@@ -163,13 +163,6 @@ Rcpp::List rangerCpp(uint treetype, Rcpp::NumericMatrix& input_x, Rcpp::NumericM
       std::vector<std::vector<double>> split_num_samples = loaded_forest["split.numSamples"];
       std::vector<bool> is_ordered = loaded_forest["is.ordered"];
 
-      for (const auto& decreases_row : split_decreases) {
-          for (double decrease : decreases_row) {
-              std::cout << decrease << " ";
-          }
-          std::cout << "\n";
-      }
-
       if (treetype == TREE_CLASSIFICATION) {
         std::vector<double> class_values = loaded_forest["class.values"];
         auto& temp = dynamic_cast<ForestClassification&>(*forest);
